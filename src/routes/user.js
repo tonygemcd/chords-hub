@@ -1,78 +1,60 @@
 var express = require('express');
 var router = express.Router();
 var UserModel = require('../models/user');
-var async = require('async');
 
 //
 // ALL
-router.all('/*', function (req, res, next) {
-  console.log('用户模块');
-  next();
-});
-
-//
-// GET userList
-// 获取所有用户信息
-router.get('/list', function (req, res) {
-  UserModel.find({}, function (err, users) {
-    if (err) throw err;
-
-    res.send({
-      errCode: 0,
-      data: {
-        users: users
-      }
-    });
-  });
-});
-
-//
-// POST
-// 添加用户
+// router.all('/*', function (req, res, next) {
+//   console.log('用户模块');
+//   next();
+// });
 router.post('/add', function (req, res) {
   var tony = new UserModel({
-    name: 'Tony',
-    meta: {
-      age: '18'
+    uid: 1002,
+    userInfo: {
+      nickname: 'Tony',
+      meta: {
+        age: 18
+      }
     }
   });
   tony.save(function (err) {
     if (err) throw err;
     res.send({
-      errCode: 0,
-      data: {}
+      errCode: 0
     });
   });
 });
 
-//
-// DELETE
-// 删除所有用户
-router.delete('/deleteall', function (req, res) {
-  UserModel.find({}, function (err, users) {
-    if (err) throw err;
+router.route('/:uid')
+  .all(function (req, res, next) {
+    UserModel.findOne({ uid: req.params.uid }, function (err, user) {
+      if (err) return next(err);
 
-    var idsArray = [];
-    for (var i = 0; i < users.length; i++) {
-      idsArray.push(users[i]._id);
-    }
-    async.parallel({
-      function (callback) {
-        UserModel.remove({ _id: { $in: idsArray } }, function (err) {
-          if (err) throw err;
-
-          console.log('deleted: ' + JSON.stringify(idsArray));
-        });
-      }
+      req._user = user;
+      next();
     });
-
-    res.send({
+  })
+  // 获取用户信息
+  .get(function (req, res) {
+    res.json({
       errCode: 0,
       data: {
-        users: users
+        userInfo: req._user.userInfo
       }
     });
+  })
+  // 更新用户信息
+  .put(function (req, res) {
+    console.log('update user info');
+  })
+  // 删除用户
+  .delete(function (req, res) {
+    UserModel.findOneAndUpdate({ uid: req.params.uid }, { deleted: true }, function (err, user) {
+      if (err) throw err;
+
+      res.json({ errCode: 0 });
+    });
   });
-});
 
 module.exports = router;

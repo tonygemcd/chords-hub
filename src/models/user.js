@@ -1,26 +1,37 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var userInfoSchema = new Schema({
+  nickname: String,
+  meta: {
+    age: { type: Number, min: 0, max: 200 },
+    gender: Number, // 1: male, 2: female
+    website: String
+  }
+});
+
 // create a schema
 var userSchema = new Schema({
-  name: String,
-  meta: {
-    age: Number,
-    website: String
-  },
-  created_at: Date,
-  updated_at: Date
+  uid: Number,
+  username: String,
+  password: String,
+  userInfo: userInfoSchema,
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
+  deletedAt: Date,
+  deleted: Boolean
 });
 
 // 每次保存前，更新日期
 userSchema.pre('save', function (next) {
-  var currentDate = new Date();
-
-  this.updated_at = currentDate;
-
-  if (!this.created_at) this.created_at = currentDate;
-
   next();
+});
+
+// 每次更新之后，更新日期
+userSchema.post('findOneAndUpdate', function (doc) {
+  var currentDate = new Date();
+  doc.updatedAt = currentDate;
+  doc.save();
 });
 
 // create a model by schema

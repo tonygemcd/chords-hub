@@ -6,6 +6,7 @@ var webpackConfig = require('./webpack.dev.conf');
 var mongoose = require('mongoose');
 
 var userRoute = require('../routes/user');
+var usersRoute = require('../routes/users');
 
 // 连接 mongodb
 mongoose.connect('mongodb://localhost/chordshubdb');
@@ -41,7 +42,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/static', express.static('./static'));
 
 // RESTful APIs
-app.use('/user', userRoute); // 用户模块
+app.use('/api/user', userRoute); // 用户模块
+app.use('/api/users', usersRoute); // 用户组操作
 
 // catch 404
 app.use(function (req, res, next) {
@@ -50,10 +52,10 @@ app.use(function (req, res, next) {
   next(err);
 });
 
-module.exports = app.listen(8080, function (err) {
+module.exports = app.listen(8888, function (err) {
   if (err) {
     console.log(err);
     return;
   }
-  console.log('Listening at http://localhost:8080\n');
+  console.log('Listening at http://localhost:8888\n');
 });

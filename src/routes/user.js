@@ -9,7 +9,7 @@ var UserModel = require('../models/user');
 //   next();
 // });
 router.post('/add', function (req, res) {
-  var tony = new UserModel({
+  var newUser = new UserModel({
     uid: 1002,
     userInfo: {
       nickname: 'Tony',
@@ -18,7 +18,7 @@ router.post('/add', function (req, res) {
       }
     }
   });
-  tony.save(function (err) {
+  newUser.save(function (err) {
     if (err) throw err;
     res.send({
       errCode: 0

@@ -12,7 +12,6 @@ var userInfoSchema = new Schema({
 
 // create a schema
 var userSchema = new Schema({
-  uid: Number,
   username: String,
   password: String,
   userInfo: userInfoSchema,
@@ -22,7 +21,7 @@ var userSchema = new Schema({
   deleted: Boolean
 });
 
-// 每次保存前，更新日期
+// 每次保存前
 userSchema.pre('save', function (next) {
   next();
 });

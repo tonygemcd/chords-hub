@@ -1,9 +1,9 @@
 <template>
 <div class="register_wrap">
   <group title="注册 Chrods Hub">
-    <m-input title="用户名" placeholder="请输入你的用户名"></m-input>
-    <m-input title="密码" placeholder="请输入密码"></m-input>
-    <m-input title="邀请码" placeholder="请输入邀请码"></m-input>
+    <m-input title="用户名" placeholder="请输入你的用户名" :value.sync="username"></m-input>
+    <m-input title="密码" placeholder="请输入密码" :value.sync="password"></m-input>
+    <m-input title="邀请码" placeholder="请输入邀请码" :value.sync="invitecode"></m-input>
   </group>
 </div>
 </template>
@@ -20,6 +20,13 @@ export default {
   components: {
     MInput,
     Group
+  },
+  data () {
+    return {
+      username: '223',
+      password: '234',
+      invitecode: '1231sad'
+    };
   },
   methods: {
     addNewUser () {

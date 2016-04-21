@@ -77,6 +77,10 @@ module.exports = {
         loader: 'vue'
       },
       {
+        test: /mobile-ui.src.*?js$/,
+        loader: 'babel'
+      },
+      {
         test: /\.js$/,
         loader: 'babel',
         include: projectRoot,

@@ -89,7 +89,9 @@ export default {
 </script>
 
 <style>
+@import "./assets/vendors/normalize.css";
 body {
+  background-color: #fbf9fe;
   font-family: Helvetica, sans-serif;
 }
 </style>

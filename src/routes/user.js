@@ -10,13 +10,8 @@ var UserModel = require('../models/user');
 // });
 router.post('/add', function (req, res) {
   var newUser = new UserModel({
-    uid: 1002,
-    userInfo: {
-      nickname: 'Tony',
-      meta: {
-        age: 18
-      }
-    }
+    username: req.body.username,
+    password: req.body.password
   });
   newUser.save(function (err) {
     if (err) throw err;
@@ -50,7 +45,7 @@ router.route('/:uid')
   })
   // 删除用户
   .delete(function (req, res) {
-    UserModel.findOneAndUpdate({ uid: req.params.uid }, { deleted: true }, function (err, user) {
+    UserModel.findOneAndUpdate({ _id: '5718fb0588c62e29284a9028' }, { deleted: true }, function (err, user) {
       if (err) throw err;
 
       res.json({ errCode: 0 });

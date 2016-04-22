@@ -8,7 +8,7 @@ var userInfoSchema = new Schema({
     gender: Number, // 1: male, 2: female
     website: String
   }
-});
+}, { _id: false }); // 取消自建 _id
 
 // create a schema
 var userSchema = new Schema({

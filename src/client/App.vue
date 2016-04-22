@@ -5,7 +5,8 @@
     <a href="javascript:void(0);" @click="getUser()">获取用户信息</a>
     <a href="javascript:void(0);" @click="getUsers()">获取所有用户信息</a>
     <a href="javascript:void(0);" @click="deleteUser()">删除用户</a>
-    <a href="javascript:void(0);" @click="deleteUsers()">删除所有用户</a>
+    <a href="javascript:void(0);" @click="deleteUsers()">删除所有用户</a><br/>
+    
     <router-view
     transition
     transition-mode="out-in"></router-view>

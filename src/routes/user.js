@@ -3,16 +3,13 @@ var router = express.Router();
 var UserModel = require('../models/user');
 var InviteCodeModel = require('../models/invite-code');
 
-//
-// ALL
-// router.all('/*', function (req, res, next) {
-//   console.log('用户模块');
-//   next();
-// });
 router.post('/add', function (req, res) {
   var inviteCode = req.body.invitecode;
 
-  InviteCodeModel.findOne({ code: inviteCode }).then(function (inviteCodeDoc) {
+  InviteCodeModel.findOne({
+    code: inviteCode
+  }).then(function (inviteCodeDoc) {
+    // Fullfill
     if (inviteCodeDoc.actived) { // 激活码可用
       var newUser = new UserModel({
         username: req.body.username,
@@ -33,6 +30,9 @@ router.post('/add', function (req, res) {
         errMsg: '此邀请码已经被使用'
       });
     }
+  }, function (err) {
+    // Rejected
+    if (err) throw err;
   });
 });
 

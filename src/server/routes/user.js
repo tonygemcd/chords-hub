@@ -4,11 +4,11 @@ var UserModel = require('../models/user');
 var InviteCodeModel = require('../models/invite-code');
 
 router.post('/add', function (req, res) {
-  var inviteCode = req.body.invitecode;
+  var inviteCodeQuery = {
+    code: req.body.invitecode
+  };
 
-  InviteCodeModel.findOne({
-    code: inviteCode
-  }).then(function (inviteCodeDoc) {
+  InviteCodeModel.findOne(inviteCodeQuery).then(function (inviteCodeDoc) {
     // Fullfill
     if (inviteCodeDoc.actived) { // 激活码可用
       var newUser = new UserModel({
@@ -18,7 +18,7 @@ router.post('/add', function (req, res) {
       newUser.save().then(function () {
         inviteCodeDoc.actived = false; // 设置激活码状态为不可用
         inviteCodeDoc.updatedAt = new Date(); // 更新修改时间
-        inviteCodeDoc.save().then(function () {
+        inviteCodeDoc.save(function () {
           res.json({
             errCode: 0
           });

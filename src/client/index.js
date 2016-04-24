@@ -4,6 +4,7 @@ import Resource from 'vue-resource';
 import App from './App';
 
 import Register from './views/Register';
+import Login from './views/Login';
 
 Vue.use(Resource);
 
@@ -17,6 +18,9 @@ const router = new Router({
 router.map({
   '/register': {
     component: Register
+  },
+  '/login': {
+    component: Login
   }
 });
 

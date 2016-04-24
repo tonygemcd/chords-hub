@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var history = require('connect-history-api-fallback');
 var webpack = require('webpack');
 var webpackConfig = require('./webpack.dev.conf');
@@ -39,6 +40,7 @@ app.use(devMiddleware); // webpack bundle output
 app.use(hotMiddleware); // enable hot-reload
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 // 静态文件服务
 app.use('/static', express.static('./static'));

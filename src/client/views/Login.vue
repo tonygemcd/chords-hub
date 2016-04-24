@@ -6,6 +6,7 @@
   </group>
   <div class="buttons_wrap">
     <m-button type="primary" @click="login()">登入</m-button>
+    <m-button type="primary" @click="checkLogin()">校验登入态</m-button>
   </div>
 </div>
 </template>
@@ -14,6 +15,7 @@
 import Group from 'mui_components/group';
 import MInput from 'mui_components/m-input';
 import MButton from 'mui_components/m-button';
+import Cookie from 'js-cookie';
 
 export default {
   created () {
@@ -33,19 +35,42 @@ export default {
   },
   methods: {
     login () {
-      let newUserData = {
+      let loginData = {
         username: this.username,
         password: this.password
       };
-      this.$http.post('/api/user/add', newUserData, {
+      this.$http.post('/api/login', loginData, {
         headers: {
           'Accept': 'application/json',
           'Cache-Control': 'no-cache'
         }
       }).then(function (response) {
-        response.data;
-        console.log(response);
+        // 成功
+        if (response.data.errCode === 0) {
+          Cookie.set('user_id', response.data.id, { expires: 1 });
+          Cookie.set('user_skey', response.data.skey, { expires: 1 });
+        } else {
+          console.log('登入失败');
+        }
       }, function (response) {
+        // 失败
+      });
+    },
+    checkLogin () {
+      this.$http.get('/api/login', [], {
+        headers: {
+          'Accept': 'application/json',
+          'Cache-Control': 'no-cache'
+        }
+      }).then(function (response) {
+        // 成功
+        if (response.data.errCode === 0) {
+          console.log('校验成功');
+        } else {
+          console.log('校验失败');
+        }
+      }, function (response) {
+        // 失败
       });
     }
   }

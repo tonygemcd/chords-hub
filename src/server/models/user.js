@@ -14,6 +14,7 @@ var userInfoSchema = new Schema({
 var userSchema = new Schema({
   username: String,
   password: String,
+  skey: String, // 登入校验用
   userInfo: userInfoSchema,
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },

@@ -5,10 +5,10 @@ var webpack = require('webpack');
 var webpackConfig = require('./webpack.dev.conf');
 var mongoose = require('mongoose');
 
-var userRoute = require('../routes/user');
-var usersRoute = require('../routes/users');
-var inviteCodeRoute = require('../routes/invite-code');
-var loginRoute = require('../routes/login');
+var userRoute = require('./routes/user');
+var usersRoute = require('./routes/users');
+var inviteCodeRoute = require('./routes/invite-code');
+var loginRoute = require('./routes/login');
 
 // 连接 mongodb
 mongoose.connect('mongodb://localhost/chordshubdb');

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var UserModel = require('../models/user');
+var InviteCodeModel = require('../models/invite-code');
 
 //
 // ALL
@@ -9,15 +10,29 @@ var UserModel = require('../models/user');
 //   next();
 // });
 router.post('/add', function (req, res) {
-  var newUser = new UserModel({
-    username: req.body.username,
-    password: req.body.password
-  });
-  newUser.save(function (err) {
-    if (err) throw err;
-    res.send({
-      errCode: 0
-    });
+  var inviteCode = req.body.invitecode;
+
+  InviteCodeModel.findOne({ code: inviteCode }).then(function (inviteCodeDoc) {
+    if (inviteCodeDoc.actived) { // 激活码可用
+      var newUser = new UserModel({
+        username: req.body.username,
+        password: req.body.password
+      });
+      newUser.save().then(function () {
+        inviteCodeDoc.actived = false; // 设置激活码状态为不可用
+        inviteCodeDoc.updatedAt = new Date(); // 更新修改时间
+        inviteCodeDoc.save().then(function () {
+          res.json({
+            errCode: 0
+          });
+        });
+      });
+    } else {
+      res.json({
+        errCode: 1,
+        errMsg: '此邀请码已经被使用'
+      });
+    }
   });
 });
 

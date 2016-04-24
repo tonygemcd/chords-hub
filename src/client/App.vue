@@ -6,7 +6,9 @@
     <a href="javascript:void(0);" @click="getUsers()">获取所有用户信息</a>
     <a href="javascript:void(0);" @click="deleteUser()">删除用户</a>
     <a href="javascript:void(0);" @click="deleteUsers()">删除所有用户</a><br/>
-    
+    <a href="javascript:void(0);" @click="generateInviteCode()">生成邀请码</a>
+    <a href="javascript:void(0);" @click="getInviteCodes()">获取邀请码</a>
+    <a href="javascript:void(0);" @click="deleteInviteCodes()">删除邀请码</a>
     <router-view
     transition
     transition-mode="out-in"></router-view>
@@ -84,6 +86,35 @@ export default {
       }, function (response) {
         // error callback
       });
+    },
+    generateInviteCode () {
+      this.$http.post('/api/invite-code/generate', [], {
+        headers: {
+          'Accept': 'application/json',
+          'Cache-Control': 'no-cache'
+        }
+      }).then(function (response) {
+        response.data;
+        console.log(response);
+      }, function (response) {
+        // error callback
+      });
+    },
+    getInviteCodes () {
+      this.$http.get('/api/invite-code/all', [], {
+        headers: {
+          'Accept': 'application/json',
+          'Cache-Control': 'no-cache'
+        }
+      }).then(function (response) {});
+    },
+    deleteInviteCodes () {
+      this.$http.delete('/api/invite-code/all', [], {
+        headers: {
+          'Accept': 'application/json',
+          'Cache-Control': 'no-cache'
+        }
+      }).then(function (response) {});
     }
   }
 };

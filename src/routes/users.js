@@ -11,9 +11,7 @@ router.route('/')
 
       res.json({
         errCode: 0,
-        data: {
-          users: users
-        }
+        users: users
       });
     });
   })
@@ -38,9 +36,7 @@ router.route('/')
 
       res.send({
         errCode: 0,
-        data: {
-          users: users
-        }
+        users: users
       });
     });
   });

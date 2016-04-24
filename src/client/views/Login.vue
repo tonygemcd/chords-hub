@@ -5,7 +5,7 @@
     <m-input title="密码" placeholder="请输入密码" type="password" :value.sync="password"></m-input>
   </group>
   <div class="buttons_wrap">
-    <m-button type="primary" @click="login()">注册</m-button>
+    <m-button type="primary" @click="login()">登入</m-button>
   </div>
 </div>
 </template>

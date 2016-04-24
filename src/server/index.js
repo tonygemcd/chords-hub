@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 var userRoute = require('../routes/user');
 var usersRoute = require('../routes/users');
 var inviteCodeRoute = require('../routes/invite-code');
+var loginRoute = require('../routes/login');
 
 // 连接 mongodb
 mongoose.connect('mongodb://localhost/chordshubdb');
@@ -46,6 +47,7 @@ app.use('/static', express.static('./static'));
 app.use('/api/user', userRoute); // 用户模块
 app.use('/api/users', usersRoute); // 用户组操作
 app.use('/api/invite-code', inviteCodeRoute); // 邀请码
+app.use('/api/login', loginRoute);
 
 // catch 404
 app.use(function (req, res, next) {

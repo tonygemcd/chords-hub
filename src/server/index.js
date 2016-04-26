@@ -6,10 +6,10 @@ var webpack = require('webpack');
 var webpackConfig = require('./webpack.dev.conf');
 var mongoose = require('mongoose');
 
-var userRoute = require('./routes/user');
-var usersRoute = require('./routes/users');
-var inviteCodeRoute = require('./routes/invite-code');
-var loginRoute = require('./routes/login');
+var userCtrl = require('./controllers/user');
+var usersCtrl = require('./controllers/users');
+var inviteCodeCtrl = require('./controllers/invite-code');
+var loginCtrl = require('./controllers/login');
 
 // 连接 mongodb
 mongoose.connect('mongodb://localhost/chordshubdb');
@@ -43,13 +43,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // 静态文件服务
-app.use('/static', express.static('./static'));
+app.use('/static', express.static('./static')); // TODO:
 
 // RESTful APIs
-app.use('/api/user', userRoute); // 用户模块
-app.use('/api/users', usersRoute); // 用户组操作
-app.use('/api/invite-code', inviteCodeRoute); // 邀请码
-app.use('/api/login', loginRoute);
+app.use('/api/user', userCtrl); // 用户模块
+app.use('/api/users', usersCtrl); // 用户组操作
+app.use('/api/invite-code', inviteCodeCtrl); // 邀请码
+app.use('/api/login', loginCtrl);
 
 // catch 404
 app.use(function (req, res, next) {

@@ -2,6 +2,10 @@
   "name": "chords-hub",
   "version": "0.0.1",
   "description": "A web for sharing and storing chords",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tonygemcd/chords-hub.git"
+  },
   "scripts": {
     "dev": "supervisor src/server/",
     "test": "echo \"Error: no test specified\" && exit 1"

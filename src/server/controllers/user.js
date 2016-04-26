@@ -38,7 +38,7 @@ router.post('/', function (req, res) {
 
 router.route('/:id')
   .all(function (req, res, next) {
-    UserModel.findOne({ uid: req.params.id }, function (err, user) {
+    UserModel.findOne({ _id: req.params.id }, function (err, user) {
       if (err) return next(err);
 
       req._user = user;

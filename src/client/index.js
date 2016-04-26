@@ -35,6 +35,17 @@ router.map({
         component: ChordsList
       }
     }
+  },
+  '/:user_id/chords': {
+    component: Chords,
+    subRoutes: {
+      '/edit': {
+        component: ChordsEdit
+      },
+      '/list': {
+        component: ChordsList
+      }
+    }
   }
 });
 

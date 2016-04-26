@@ -3,7 +3,7 @@ var router = express.Router();
 var UserModel = require('../models/user');
 var InviteCodeModel = require('../models/invite-code');
 
-router.post('/add', function (req, res) {
+router.post('/', function (req, res) {
   var inviteCodeQuery = {
     code: req.body.invitecode
   };
@@ -36,9 +36,9 @@ router.post('/add', function (req, res) {
   });
 });
 
-router.route('/:uid')
+router.route('/:id')
   .all(function (req, res, next) {
-    UserModel.findOne({ uid: req.params.uid }, function (err, user) {
+    UserModel.findOne({ uid: req.params.id }, function (err, user) {
       if (err) return next(err);
 
       req._user = user;
@@ -60,7 +60,7 @@ router.route('/:uid')
   })
   // 删除用户
   .delete(function (req, res) {
-    UserModel.findOneAndUpdate({ _id: '5718fb0588c62e29284a9028' }, { deleted: true }, function (err, user) {
+    UserModel.findOneAndUpdate({ _id: req.params.id }, { deleted: true }, function (err, user) {
       if (err) throw err;
 
       res.json({ errCode: 0 });

@@ -25,7 +25,7 @@ export default {
     addNewUser () {
       this.$http.post('/api/user/add', [], {
         headers: {
-          'Accept': 'application/json, text/javascript, */*; q=0.01',
+          'Accept': 'application/json',
           'Cache-Control': 'no-cache'
         }
       }).then(function (response) {
@@ -35,10 +35,10 @@ export default {
         // error callback
       });
     },
-    getUser (uid = 1002) {
-      this.$http.get(`/api/user/${uid}`, [], {
+    getUser (id = '571cd9d8815c5d710c4c3738') {
+      this.$http.get(`/api/user/${id}`, [], {
         headers: {
-          'Accept': 'application/json, text/javascript, */*; q=0.01',
+          'Accept': 'application/json',
           'Cache-Control': 'no-cache'
         }
       }).then(function (response) {
@@ -51,7 +51,7 @@ export default {
     getUsers () {
       this.$http.get('/api/users', [], {
         headers: {
-          'Accept': 'application/json, text/javascript, */*; q=0.01',
+          'Accept': 'application/json',
           'Cache-Control': 'no-cache'
         }
       }).then(function (response) {
@@ -61,10 +61,10 @@ export default {
         // error callback
       });
     },
-    deleteUser (uid = 1002) {
-      this.$http.delete(`/api/user/${uid}`, [], {
+    deleteUser (id = '571cd9d8815c5d710c4c3738') {
+      this.$http.delete(`/api/user/${id}`, [], {
         headers: {
-          'Accept': 'application/json, text/javascript, */*; q=0.01',
+          'Accept': 'application/json',
           'Cache-Control': 'no-cache'
         }
       }).then(function (response) {
@@ -77,7 +77,7 @@ export default {
     deleteUsers () {
       this.$http.delete('/api/users', [], {
         headers: {
-          'Accept': 'application/json, text/javascript, */*; q=0.01',
+          'Accept': 'application/json',
           'Cache-Control': 'no-cache'
         }
       }).then(function (response) {

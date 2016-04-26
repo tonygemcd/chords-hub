@@ -3,17 +3,20 @@ var Schema = mongoose.Schema;
 
 // 歌曲信息
 var metaSchema = new Schema({
-  major: String
-});
+  tone: String,
+  title: String,
+  singers: Array
+}, { _id: false });
 
 // 内容信息
 var contentSchema = new Schema({
-  content: String // 和弦 + 歌词
-});
+  lyric: String // 和弦 + 歌词
+}, { _id: false });
 
 var chordsSchema = new Schema({
   meta: metaSchema,
   content: contentSchema,
+  creatorId: String,
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
 });

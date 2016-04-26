@@ -29,14 +29,8 @@
   </group>
   <div class="bottom_wrap">
     <p class="tip">{{ bottomTip }}</p>
-    <m-button type="primary" @click="addNewUser()">注册</m-button>
+    <m-button type="primary" @click="addNewUser()" :disabled="!(validate())">注册</m-button>
   </div>
-
-  <dialog
-  :show="dialog.show"
-  :head="dialog.head"
-  :buttons="dialog.buttons">
-  </dialog>
 </div>
 </template>
 
@@ -44,7 +38,6 @@
 import Group from 'mui_components/group';
 import MInput from 'mui_components/m-input';
 import MButton from 'mui_components/m-button';
-import Dialog from 'mui_components/dialog';
 
 export default {
   created () {
@@ -54,26 +47,14 @@ export default {
   components: {
     Group,
     MInput,
-    MButton,
-    Dialog
+    MButton
   },
   data () {
-    let that = this;
     return {
       username: '',
       password: '',
       passwordCheck: '',
       invitecode: '',
-      dialog: {
-        show: false,
-        head: '',
-        buttons: [{
-          name: '确认',
-          onClick () {
-            that.dialog.show = false;
-          }
-        }]
-      },
       bottomTip: ''
     };
   },
@@ -89,7 +70,7 @@ export default {
         invitecode: this.invitecode
       };
       let that = this;
-      this.$http.post('/api/user/add', newUserData, {
+      this.$http.post('/api/user', newUserData, {
         headers: {
           'Accept': 'application/json',
           'Cache-Control': 'no-cache'
@@ -106,8 +87,7 @@ export default {
       });
     },
     showAlert (content = '失败了，请重试') {
-      this.dialog.show = true;
-      this.dialog.head = content;
+      this.$dispatch('show-alert', content);
     },
     validate () {
       let validated = false;

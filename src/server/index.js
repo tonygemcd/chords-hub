@@ -10,6 +10,7 @@ var userCtrl = require('./controllers/user');
 var usersCtrl = require('./controllers/users');
 var inviteCodeCtrl = require('./controllers/invite-code');
 var loginCtrl = require('./controllers/login');
+var chordsCtrl = require('./controllers/chords');
 
 // 连接 mongodb
 mongoose.connect('mongodb://localhost/chordshubdb');
@@ -50,6 +51,7 @@ app.use('/api/user', userCtrl); // 用户模块
 app.use('/api/users', usersCtrl); // 用户组操作
 app.use('/api/invite-code', inviteCodeCtrl); // 邀请码
 app.use('/api/login', loginCtrl);
+app.use('/api/chords', chordsCtrl);
 
 // catch 404
 app.use(function (req, res, next) {
@@ -58,7 +60,7 @@ app.use(function (req, res, next) {
   next(err);
 });
 
-module.exports = app.listen(8888, function (err) {
+module.exports = app.listen(8081, function (err) {
   if (err) {
     console.log(err);
     return;

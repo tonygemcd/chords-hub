@@ -5,6 +5,9 @@ import App from './App';
 
 import Register from './views/Register';
 import Login from './views/Login';
+import Chords from './views/Chords';
+import ChordsEdit from './views/ChordsEdit';
+import ChordsList from './views/ChordsList';
 
 Vue.use(Resource);
 
@@ -21,6 +24,17 @@ router.map({
   },
   '/login': {
     component: Login
+  },
+  '/chords': {
+    component: Chords,
+    subRoutes: {
+      '/edit': {
+        component: ChordsEdit
+      },
+      '/list': {
+        component: ChordsList
+      }
+    }
   }
 });
 

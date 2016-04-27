@@ -36,7 +36,7 @@ router.get('/', function (req, res) {
       res.json({
         errCode: 0
       });
-    } else {
+    } else { // 未找到用户信息
       res.json({
         errCode: 1,
         errMsg: '找不到用户'

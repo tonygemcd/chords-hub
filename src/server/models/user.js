@@ -16,11 +16,7 @@ var userSchema = new Schema({
   password: String,
   skey: String, // 登入校验用
   userInfo: userInfoSchema,
-  chords: {
-    createByMe: {
-      ids: Array
-    }
-  },
+  songs: [{ type: Schema.Types.ObjectId, ref: 'Song' }],
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
   deletedAt: Date,

@@ -5,19 +5,16 @@ var randomString = require('random-string');
 
 // 登入
 router.post('/', function (req, res) {
-  var userQuery = {
+  var newSkey = randomString({ length: 6 });
+  var userQuery = UserModel.findOneAndUpdate({
     username: req.body.username,
     password: req.body.password
-  };
-  UserModel.findOne(userQuery).then(function (userDoc) {
-    var skey = randomString({ length: 6 });
-    userDoc.skey = skey;
-    return userDoc.save(function () {
-      res.json({
-        errCode: 0,
-        skey: skey,
-        id: userDoc._id
-      });
+  }, { skey: newSkey }).exec();
+  userQuery.then(function (doc) {
+    res.json({
+      errCode: 0,
+      skey: newSkey,
+      id: doc._id
     });
   }, function (err) {
     if (err) throw err;
@@ -30,14 +27,21 @@ router.post('/', function (req, res) {
 
 // 校验登入态
 router.get('/', function (req, res) {
-  var userQuery = {
+  var userQuery = UserModel.findOne({
     _id: req.cookies.user_id,
     skey: req.cookies.user_skey
-  };
-  UserModel.findOne(userQuery).then(function () {
-    res.json({
-      errCode: 0
-    });
+  }).exec();
+  userQuery.then(function (doc) {
+    if (doc) {
+      res.json({
+        errCode: 0
+      });
+    } else {
+      res.json({
+        errCode: 1,
+        errMsg: '找不到用户'
+      });
+    }
   }, function (err) {
     if (err) throw err;
     res.json({

@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var metaSchema = new Schema({
   tone: String,
   title: String,
-  singers: Array
+  singers: [String]
 }, { _id: false });
 
 // 内容信息
@@ -16,6 +16,7 @@ var contentSchema = new Schema({
 var songSchema = new Schema({
   meta: metaSchema,
   content: contentSchema,
+  creator: { type: Schema.Types.ObjectId, ref: 'User' },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
 });

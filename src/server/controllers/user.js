@@ -4,11 +4,9 @@ var UserModel = require('../models/user');
 var InviteCodeModel = require('../models/invite-code');
 
 router.post('/', function (req, res) {
-  var inviteCodeQuery = {
-    code: req.body.invitecode
-  };
+  var inviteCodeQuery = InviteCodeModel.findOne({ code: req.body.invitecode }).exec();
 
-  InviteCodeModel.findOne(inviteCodeQuery).then(function (inviteCodeDoc) {
+  inviteCodeQuery.then(function (inviteCodeDoc) {
     // Fullfill
     if (inviteCodeDoc.actived) { // 激活码可用
       var newUser = new UserModel({

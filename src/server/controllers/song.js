@@ -5,7 +5,8 @@ var SongModel = require('../models/song');
 
 router.route('/')
   .get(function (req, res) {
-    SongModel.find({}).then(function (docs) {
+    var songQuery = SongModel.find({}).exec();
+    songQuery.then(function (docs) {
       res.json({
         errCode: 0,
         songList: docs

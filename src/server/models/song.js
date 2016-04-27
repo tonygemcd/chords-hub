@@ -13,14 +13,13 @@ var contentSchema = new Schema({
   lyric: String // 和弦 + 歌词
 }, { _id: false });
 
-var chordsSchema = new Schema({
+var songSchema = new Schema({
   meta: metaSchema,
   content: contentSchema,
-  creatorId: String,
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
 });
 
-var Chords = mongoose.model('Chords', chordsSchema);
+var Song = mongoose.model('Song', songSchema);
 
-module.exports = Chords;
+module.exports = Song;

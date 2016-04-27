@@ -1,19 +1,19 @@
 var express = require('express');
 var router = express.Router();
-var ChordsModel = require('../models/chords');
+var SongModel = require('../models/song');
 // var UserModel = require('../models/user');
 
 router.route('/')
   .get(function (req, res) {
-    ChordsModel.find({}).then(function (chordsDocs) {
+    SongModel.find({}).then(function (docs) {
       res.json({
         errCode: 0,
-        chordsList: chordsDocs
+        songList: docs
       });
     });
   })
   .post(function (req, res) {
-    var newChords = new ChordsModel({
+    var newSong = new SongModel({
       meta: {
         title: req.body.title,
         singers: req.body.singers,
@@ -23,7 +23,7 @@ router.route('/')
         lyric: req.body.lyric
       }
     });
-    newChords.save().then(function () {
+    newSong.save().then(function () {
       res.json({
         errCode: 0
       });

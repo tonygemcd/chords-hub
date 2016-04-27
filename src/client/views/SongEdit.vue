@@ -1,5 +1,5 @@
 <template>
-<div class="chords_edit_wrap">
+<div class="song_edit_wrap">
   <group title="歌曲信息">
     <m-input
     title="歌曲名"
@@ -19,7 +19,7 @@
     <m-textarea placeholder="在此填写歌词" :value.sync="lyric"></m-textarea>
   </group>
   <div class="buttons_wrap">
-    <m-button type="primary" @click="createChords()">创建</m-button>
+    <m-button type="primary" @click="createSong()">创建</m-button>
   </div>
 
   <popup :show.sync="tonePicker.show">
@@ -71,15 +71,15 @@ export default {
     triggerTonePickerShow () {
       this.tonePicker.show = !this.tonePicker.show;
     },
-    createChords () {
-      let newChordsData = {
+    createSong () {
+      let newSongData = {
         title: this.title,
         singers: this.singers,
         tone: this.tonePicker.value[0],
         lyric: this.lyric
       };
       let that = this;
-      this.$http.post('/api/chords', newChordsData, {
+      this.$http.post('/api/song', newSongData, {
         headers: {
           'Accept': 'application/json',
           'Cache-Control': 'no-cache'
@@ -99,7 +99,7 @@ export default {
 </script>
 
 <style lang="scss">
-.chords_edit_wrap {
+.song_edit_wrap {
   .buttons_wrap {
     margin-top: 20px;
     padding: 0 10px;

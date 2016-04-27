@@ -1,9 +1,9 @@
 <template>
-<div class="chords_list_wrap">
-  <p v-show="!(chordsList.length > 0)">数据加载中...</p>
-  <div class="chords_item" v-for="item in chordsList">
+<div class="song_list_wrap">
+  <p v-show="!(songList.length > 0)">数据加载中...</p>
+  <div class="song_item" v-for="item in songList">
     <h4>{{ item.meta.title }}</h4>
-    <div class="chords_metas">
+    <div class="song_metas">
       <span>演唱者: {{ item.meta.singers[0] }}</span>
       <span>选调: {{ item.meta.tone }}</span>
     </div>
@@ -17,26 +17,26 @@ export default {
   created () {
   },
   ready () {
-    this.renderChordsList();
+    this.renderSongList();
   },
   components: {
   },
   data () {
     return {
-      chordsList: []
+      songList: []
     };
   },
   methods: {
-    renderChordsList () {
+    renderSongList () {
       let that = this;
-      this.$http.get('/api/chords', [], {
+      this.$http.get('/api/song', [], {
         headers: {
           'Accept': 'application/json',
           'Cache-Control': 'no-cache'
         }
       }).then(function (response) {
         if (response.data.errCode === 0) {
-          that.chordsList = response.data.chordsList;
+          that.songList = response.data.songList;
         }
         console.log(response);
       }, function (response) {
@@ -47,8 +47,8 @@ export default {
 </script>
 
 <style lang="scss">
-.chords_list_wrap {
-  .chords_item {
+.song_list_wrap {
+  .song_item {
     background-color: #fff;
     padding: 10px;
     margin-bottom: 10px;
@@ -57,7 +57,7 @@ export default {
       margin-bottom: 5px;
     }
   }
-  .chords_metas {
+  .song_metas {
     font-size: 14px;
     margin-bottom: 5px;
     span {

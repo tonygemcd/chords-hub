@@ -5,9 +5,9 @@ import App from './App';
 
 import Register from './views/Register';
 import Login from './views/Login';
-import Chords from './views/Chords';
-import ChordsEdit from './views/ChordsEdit';
-import ChordsList from './views/ChordsList';
+import Song from './views/Song';
+import SongEdit from './views/SongEdit';
+import SongList from './views/SongList';
 
 Vue.use(Resource);
 
@@ -25,25 +25,25 @@ router.map({
   '/login': {
     component: Login
   },
-  '/chords': {
-    component: Chords,
+  '/song': {
+    component: Song,
     subRoutes: {
       '/edit': {
-        component: ChordsEdit
+        component: SongEdit
       },
       '/list': {
-        component: ChordsList
+        component: SongList
       }
     }
   },
-  '/:user_id/chords': {
-    component: Chords,
+  '/:user_id/song': {
+    component: Song,
     subRoutes: {
       '/edit': {
-        component: ChordsEdit
+        component: SongEdit
       },
       '/list': {
-        component: ChordsList
+        component: SongList
       }
     }
   }

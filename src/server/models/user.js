@@ -35,6 +35,11 @@ userSchema.post('findOneAndUpdate', function (doc) {
   doc.save();
 });
 
+// 校验登入态
+userSchema.methods.isLogined = function (skey) {
+  return (this.skey === skey);
+};
+
 // create a model by schema
 var User = mongoose.model('User', userSchema);
 

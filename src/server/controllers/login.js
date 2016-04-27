@@ -10,7 +10,7 @@ router.post('/', function (req, res) {
     username: req.body.username,
     password: req.body.password
   }, { skey: newSkey }).exec();
-  userQuery.then(function (doc) {
+  userQuery.then(function (doc) { // 这里传递的 doc 中的数据是未update之前的
     res.json({
       errCode: 0,
       skey: newSkey,

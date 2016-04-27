@@ -17,7 +17,7 @@ export default {
   created () {
   },
   ready () {
-    this.renderSongList();
+    this.renderSongList(this.$route.params.user_id);
   },
   components: {
   },
@@ -27,9 +27,10 @@ export default {
     };
   },
   methods: {
-    renderSongList () {
+    renderSongList (user_id) {
       let that = this;
-      this.$http.get('/api/song', [], {
+      let url = user_id ? `/api/song/user/${user_id}` : '/api/song';
+      this.$http.get(url, [], {
         headers: {
           'Accept': 'application/json',
           'Cache-Control': 'no-cache'

@@ -72,14 +72,16 @@ export default {
       this.tonePicker.show = !this.tonePicker.show;
     },
     createSong () {
+      let that = this;
       let newSongData = {
         title: this.title,
         singers: this.singers,
         tone: this.tonePicker.value[0],
         lyric: this.lyric
       };
-      let that = this;
-      this.$http.post('/api/song', newSongData, {
+      let user_id = this.$route.params.user_id;
+      let url = user_id ? `/api/song/user/${user_id}` : '/api/song';
+      this.$http.post(url, newSongData, {
         headers: {
           'Accept': 'application/json',
           'Cache-Control': 'no-cache'

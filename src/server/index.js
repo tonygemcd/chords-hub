@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var history = require('connect-history-api-fallback');
 var webpack = require('webpack');
-var webpackConfig = require('./webpack.dev.conf');
+var webpackConfig = require('../../build/webpack.dev.conf');
 var mongoose = require('mongoose');
 
 var userCtrl = require('./controllers/user');

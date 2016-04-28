@@ -6,7 +6,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // 为 entry chunks 添加 hot-reload
 Object.keys(baseConfig.entry).forEach(function (name) {
-  baseConfig.entry[name] = ['./src/server/dev-client'].concat(baseConfig.entry[name]);
+  baseConfig.entry[name] = ['./build/dev-client'].concat(baseConfig.entry[name]);
 });
 
 module.exports = merge(baseConfig, {
@@ -25,7 +25,7 @@ module.exports = merge(baseConfig, {
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: path.resolve(__dirname, '../index.html'),
+      template: path.resolve(__dirname, '../src/client/index.html'),
       inject: true
     })
   ]

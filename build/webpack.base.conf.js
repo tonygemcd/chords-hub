@@ -1,6 +1,6 @@
 var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var projectRoot = path.resolve(__dirname, '../../');
+var projectRoot = path.resolve(__dirname, '../');
 
 function cssLoaders (options) {
   options = options || {};
@@ -38,10 +38,10 @@ function cssLoaders (options) {
 
 module.exports = {
   entry: {
-    app: path.resolve(__dirname, '../client/index.js')
+    app: path.resolve(__dirname, '../src/client/index.js')
   },
   output: {
-    path: path.resolve(__dirname, '../../dist/static'),
+    path: path.resolve(__dirname, '../dist/static'),
     publicPath: './static/',
     filename: '[name].js'
   },

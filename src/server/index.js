@@ -45,7 +45,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // 静态文件服务
-app.use('/static', express.static('./static')); // TODO:
+app.use('/static', express.static('./static'));
 
 // RESTful APIs
 app.use('/api/user', userCtrl); // 用户模块

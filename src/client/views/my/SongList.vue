@@ -29,7 +29,7 @@ export default {
   methods: {
     renderSongList () {
       let that = this;
-      this.$http.get('/api/song', [], {
+      this.$http.get('/api/my/song', [], {
         headers: {
           'Accept': 'application/json',
           'Cache-Control': 'no-cache'

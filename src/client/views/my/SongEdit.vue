@@ -79,7 +79,7 @@ export default {
         tone: this.tonePicker.value[0],
         lyric: this.lyric
       };
-      this.$http.post('/api/song', newSongData, {
+      this.$http.post('/api/my/song', newSongData, {
         headers: {
           'Accept': 'application/json',
           'Cache-Control': 'no-cache'

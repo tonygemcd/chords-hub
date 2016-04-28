@@ -11,6 +11,7 @@ var usersCtrl = require('./controllers/users');
 var inviteCodeCtrl = require('./controllers/invite-code');
 var loginCtrl = require('./controllers/login');
 var songCtrl = require('./controllers/song');
+var myCtrl = require('./controllers/my');
 
 // 连接 mongodb
 mongoose.connect('mongodb://localhost/chordshubdb');
@@ -52,6 +53,7 @@ app.use('/api/users', usersCtrl); // 用户组操作
 app.use('/api/invite-code', inviteCodeCtrl); // 邀请码
 app.use('/api/login', loginCtrl);
 app.use('/api/song', songCtrl);
+app.use('/api/my', myCtrl); // 对自己的信息操作
 
 // catch 404
 app.use(function (req, res, next) {

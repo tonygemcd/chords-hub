@@ -8,6 +8,8 @@ import Login from './views/Login';
 import Song from './views/Song';
 import SongEdit from './views/SongEdit';
 import SongList from './views/SongList';
+import MySongEdit from './views/my/SongEdit';
+import MySongList from './views/my/SongList';
 
 Vue.use(Resource);
 
@@ -36,14 +38,14 @@ router.map({
       }
     }
   },
-  '/:user_id/song': {
+  '/my/song': {
     component: Song,
     subRoutes: {
       '/edit': {
-        component: SongEdit
+        component: MySongEdit
       },
       '/list': {
-        component: SongList
+        component: MySongList
       }
     }
   }

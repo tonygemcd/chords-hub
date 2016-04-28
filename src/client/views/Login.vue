@@ -34,7 +34,11 @@ export default {
     };
   },
   methods: {
+    showAlert (content = '失败了，请重试') {
+      this.$dispatch('show-alert', content);
+    },
     login () {
+      let that = this;
       let loginData = {
         username: this.username,
         password: this.password
@@ -47,13 +51,17 @@ export default {
       }).then(function (response) {
         // 成功
         if (response.data.errCode === 0) {
+          // 存下登入态
           Cookie.set('user_id', response.data.id, { expires: 1 });
           Cookie.set('user_skey', response.data.skey, { expires: 1 });
+          // 跳转到个人歌曲列表页
+          that.$route.router.go('/my/song/list');
         } else {
-          console.log('登入失败');
+          that.showAlert('登入失败');
         }
       }, function (response) {
         // 失败
+        that.showAlert('登入失败');
       });
     },
     checkLogin () {

@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var SongModel = require('../models/song');
-var UserModel = require('../models/user');
 
 router.route('/')
   .get(function (req, res) {
@@ -9,7 +8,7 @@ router.route('/')
     songQuery.then(function (docs) {
       res.json({
         errCode: 0,
-        songList: docs
+        songs: docs
       });
     });
   })
@@ -31,51 +30,22 @@ router.route('/')
     });
   });
 
-// 针对用户的接口
-router.route('/user/:user_id')
-  .all(function (req, res, next) {
-    // 校验登入
-    var userQuery = UserModel.findOne({
-      _id: req.params.user_id
-    }).exec();
-    userQuery.then(function (userDoc) {
-      if (userDoc.isLogined(req.cookies.user_skey)) {
-        req._userDoc = userDoc;
-        next();
+// 通过歌曲 id 获取歌曲信息
+router.route('/:song_id')
+  .get(function (req, res) {
+    var songQuery = SongModel.findById(req.params.song_id).exec();
+    songQuery.then(function (doc) {
+      if (doc) {
+        res.json({
+          errCode: 0,
+          song: doc
+        });
       } else {
         res.json({
           errCode: 1,
-          errMsg: '校验登入失败'
+          errMsg: '没有找到'
         });
       }
-    });
-  })
-  .get(function (req, res) {
-    req._userDoc.populate('songs', function (err, populatedDoc) {
-      if (err) throw err;
-
-      res.json({
-        errCode: 0,
-        songList: populatedDoc.songs
-      });
-    });
-  }).post(function (req, res) {
-    var newSong = new SongModel({
-      meta: {
-        title: req.body.title,
-        singers: req.body.singers,
-        tone: req.body.tone
-      },
-      content: {
-        lyric: req.body.lyric
-      }
-    });
-    newSong.save().then(function (songDoc) {
-      req._userDoc.update({ $push: {songs: songDoc._id} }).exec().then(function () {
-        res.json({
-          errCode: 0
-        });
-      });
     });
   });
 

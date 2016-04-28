@@ -86,7 +86,8 @@ export default {
         }
       }).then(function (response) {
         if (response.data.errCode === 0) {
-          that.showAlert('添加成功！');
+          // that.showAlert('添加成功！');
+          that.$route.router.go('/my/song/list');
         } else {
           that.showAlert(response.data.errMsg);
         }

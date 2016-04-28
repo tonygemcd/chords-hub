@@ -4,9 +4,10 @@
     <m-input title="用户名" placeholder="请输入你的用户名" :value.sync="username"></m-input>
     <m-input title="密码" placeholder="请输入密码" type="password" :value.sync="password"></m-input>
   </group>
+  <p class="tips" v-link="'/register'">没有账号？去注册>></p>
   <div class="buttons_wrap">
     <m-button type="primary" @click="login()">登入</m-button>
-    <m-button type="primary" @click="checkLogin()">校验登入态</m-button>
+    <m-button v-link="'/song/list'">随便看看</m-button>
   </div>
 </div>
 </template>
@@ -87,6 +88,10 @@ export default {
 
 <style lang="scss">
 .login_wrap {
+  .tips {
+    margin-top: 15px;
+    padding-left: 10px;
+  }
   .buttons_wrap {
     margin-top: 20px;
     padding: 0 10px;

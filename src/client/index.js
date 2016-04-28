@@ -6,9 +6,9 @@ import App from './App';
 import Register from './views/Register';
 import Login from './views/Login';
 import Song from './views/Song';
-import SongEdit from './views/SongEdit';
+import SongAdd from './views/SongAdd';
 import SongList from './views/SongList';
-import MySongEdit from './views/my/SongEdit';
+import MySongAdd from './views/my/SongAdd';
 import MySongList from './views/my/SongList';
 
 Vue.use(Resource);
@@ -21,6 +21,9 @@ const router = new Router({
 });
 
 router.map({
+  '/': {
+    component: Login
+  },
   '/register': {
     component: Register
   },
@@ -30,8 +33,8 @@ router.map({
   '/song': {
     component: Song,
     subRoutes: {
-      '/edit': {
-        component: SongEdit
+      '/add': {
+        component: SongAdd
       },
       '/list': {
         component: SongList
@@ -41,8 +44,8 @@ router.map({
   '/my/song': {
     component: Song,
     subRoutes: {
-      '/edit': {
-        component: MySongEdit
+      '/add': {
+        component: MySongAdd
       },
       '/list': {
         component: MySongList

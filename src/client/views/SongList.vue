@@ -1,6 +1,6 @@
 <template>
 <div class="song_list_wrap">
-  <p v-show="!(songs.length > 0)">数据加载中...</p>
+  <p>{{ tips }}</p>
   <div class="song_item" v-for="song in songs">
     <h4>{{ song.meta.title }}</h4>
     <div class="song_metas">
@@ -23,6 +23,7 @@ export default {
   },
   data () {
     return {
+      tips: '数据加载中...',
       songs: []
     };
   },
@@ -37,6 +38,7 @@ export default {
       }).then(function (response) {
         if (response.data.errCode === 0) {
           that.songs = response.data.songs;
+          that.tips = that.songs.length === 0 ? '没有歌曲○|￣|_' : '';
         }
         console.log(response);
       }, function (response) {
@@ -48,6 +50,10 @@ export default {
 
 <style lang="scss">
 .song_list_wrap {
+  p {
+    text-align: center;
+    margin: 10px 0;
+  }
   .song_item {
     background-color: #fff;
     padding: 10px;

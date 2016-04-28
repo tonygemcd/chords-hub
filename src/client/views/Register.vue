@@ -27,8 +27,8 @@
     :value.sync="invitecode"
     @change="validate()"></m-input>
   </group>
+  <p class="tips">{{ bottomTip }}</p>
   <div class="bottom_wrap">
-    <p class="tip">{{ bottomTip }}</p>
     <m-button type="primary" @click="addNewUser()" :disabled="!(validate())">注册</m-button>
   </div>
 </div>
@@ -59,17 +59,20 @@ export default {
     };
   },
   methods: {
+    showAlert (content = '失败了，请重试') {
+      this.$dispatch('show-alert', content);
+    },
     addNewUser () {
       if (!this.validate()) {
         return;
       }
 
+      let that = this;
       let newUserData = {
         username: this.username,
         password: this.password,
         invitecode: this.invitecode
       };
-      let that = this;
       this.$http.post('/api/user', newUserData, {
         headers: {
           'Accept': 'application/json',
@@ -77,17 +80,13 @@ export default {
         }
       }).then(function (response) {
         if (response.data.errCode === 0) {
-          that.showAlert('恭喜注册成功！');
+          that.$route.router.go('/login');
         } else {
           that.showAlert(response.data.errMsg);
         }
-        console.log(response);
       }, function (response) {
-
+        that.showAlert();
       });
-    },
-    showAlert (content = '失败了，请重试') {
-      this.$dispatch('show-alert', content);
     },
     validate () {
       let validated = false;
@@ -119,9 +118,11 @@ export default {
 
 <style lang="scss">
 .register_wrap {
-  .tip {
+  .tips {
     color: #666;
     font-size: 14px;
+    margin-top: 15px;
+    padding-left: 10px;
   }
   .bottom_wrap {
     margin-top: 20px;

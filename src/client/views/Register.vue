@@ -38,6 +38,7 @@
 import Group from 'mui_components/group';
 import MInput from 'mui_components/m-input';
 import MButton from 'mui_components/m-button';
+import md5 from 'md5';
 
 export default {
   created () {
@@ -70,7 +71,7 @@ export default {
       let that = this;
       let newUserData = {
         username: this.username,
-        password: this.password,
+        password: md5(this.password),
         invitecode: this.invitecode
       };
       this.$http.post('/api/user', newUserData, {

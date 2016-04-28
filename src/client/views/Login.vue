@@ -17,6 +17,7 @@ import Group from 'mui_components/group';
 import MInput from 'mui_components/m-input';
 import MButton from 'mui_components/m-button';
 import Cookie from 'js-cookie';
+import md5 from 'md5';
 
 export default {
   created () {
@@ -42,7 +43,7 @@ export default {
       let that = this;
       let loginData = {
         username: this.username,
-        password: this.password
+        password: md5(this.password)
       };
       this.$http.post('/api/login', loginData, {
         headers: {

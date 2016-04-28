@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Resource from 'vue-resource';
 import App from './App';
 
+import Admin from './views/Admin';
 import Register from './views/Register';
 import Login from './views/Login';
 import Song from './views/Song';
@@ -23,6 +24,9 @@ const router = new Router({
 router.map({
   '/': {
     component: Login
+  },
+  '/admin': {
+    component: Admin
   },
   '/register': {
     component: Register
